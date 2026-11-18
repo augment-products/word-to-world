@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Test-only lsof shim for Linux (macOS has the real /usr/sbin/lsof). Supports: lsof -nP -iTCP:<port> -sTCP:LISTEN
+port=""; for a in "$@"; do case "$a" in -iTCP:*) port="${a#-iTCP:}" ;; esac; done
+out="$(ss -ltnH "sport = :$port" 2>/dev/null)"
+[ -n "$out" ] || exit 1
+echo "COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME"
+echo "$out" | awk '{print "proc 0 user 0u IPv4 0 0t0 TCP " $4 " (LISTEN)"}'

@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>mock popups</title><!-- fixture written by hand for tests; not Cursor code -->
+<style>.ProseMirror p.is-editor-empty:first-child::before{content:attr(data-placeholder)}</style>
+</head><body>
+<!-- Class names follow Cursor 3.27.22's own UI kit (menus, tooltips, dialogs, toasts); text and ids are made up -->
+<nav data-component="workspace-sidebar">
+ <div data-sidebar-selectable-agent-id="a1"><span id="row-title">Fork Chat</span></div>
+ <div class="ui-sidebar-group"><span id="sb-cta">No agents yet</span><span id="sb-single">Delete</span></div>
+</nav>
+<div data-component="agent-panel">
+ <div data-react-transcript-root=""><div data-message-role="assistant"><p id="msg">Something went wrong</p><button id="msg-btn">Discard changes</button></div></div>
+ <button id="ap-btn" title="Export Chat" aria-label="Export Chat"><span id="ap-btn-l">Export Chat</span></button>
+ <div class="ProseMirror" contenteditable="true"><p class="is-editor-empty" id="ed-p" data-placeholder="Plan changes"><br></p></div>
+</div>
+<div data-component="menu-popup" class="ui-menu" role="menu" aria-label="Chat actions" id="menu">
+ <div class="ui-menu__search-row"><input id="menu-search" placeholder="Search" value="Delete"></div>
+ <div role="menuitem" id="mi1" aria-label="Rename"><span class="ui-menu__item-title" id="mi1-t">Rename</span></div>
+ <div role="menuitem" id="mi2"><span class="ui-menu__item-title" id="mi2-t">Mark as Unread</span></div>
+ <div role="menuitem" id="mi3"><span class="ui-menu__item-title" id="mi3-t">Delete</span></div>
+ <div role="menuitem" id="mi4"><span class="ui-menu__item-title" id="mi4-t">Zorblex the frobnicator</span></div>
+ <div class="ui-menu__empty" id="m-empty">No results found</div>
+</div>
+<div data-component="tooltip-popup" role="tooltip" id="tip">Copied to clipboard</div>
+<div class="ui-dialog" role="dialog" id="dlg"><h2 class="ui-dialog-title" id="dlg-t">Discard changes</h2>
+ <p class="ui-dialog-description" id="dlg-d">Quantum flux capacitor warmed up</p>
+ <div class="ui-dialog-footer"><button id="dlg-c">Cancel</button><button class="ui-alert-dialog-action" id="dlg-ok">Delete</button></div></div>
+<section data-sonner-toast="" id="toast"><div class="ui-toast-title" id="toast-t">Something went wrong</div></section>
+<div id="loose"><span id="loose-1">Discard changes</span></div>
+<script>
+window.addTooltip = () => { const d = document.createElement('div'); d.setAttribute('data-component', 'tooltip-popup'); d.setAttribute('role', 'tooltip'); d.id = 'tip2'; d.textContent = 'Fork Chat'; document.body.appendChild(d);
+  const e = document.createElement('div'); e.setAttribute('data-component', 'tooltip-popup'); e.id = 'tip3'; e.textContent = 'Frobnicate the widget'; document.body.appendChild(e); };
+</script>
+</body></html>

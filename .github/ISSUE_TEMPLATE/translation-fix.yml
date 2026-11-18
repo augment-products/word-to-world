@@ -1,0 +1,65 @@
+name: "訳の修正 / Translation fix"
+description: "訳の誤り・分かりにくい訳・訳されていない文字を報告 / Report a wrong, unclear or missing translation"
+title: "[translation][<lang>] "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ありがとうございます。チャットの内容・メールアドレス・アカウント名・リポジトリ名などが写っていないことを確認してから送ってください。
+        Thank you! Please make sure no chat content, e-mail address, account name or repository name is visible before submitting.
+        このツールは非公式です。Cursor 本体の不具合は Cursor 側へ報告してください。 / This tool is unofficial; report bugs in Cursor itself to Cursor.
+  - type: dropdown
+    id: lang
+    attributes:
+      label: "言語コード / Language code"
+      options: ["ja", "zh-cn", "zh-tw", "ko", "fr", "de", "es", "it", "ru", "pt-br", "cs", "tr", "pl", "その他 / other"]
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: "画面・場所 / Screen and location"
+      description: "例: 設定 > General > Privacy Mode、エージェント画面のサイドバー / e.g. Settings > General > Privacy Mode, Agents window sidebar"
+    validations:
+      required: true
+  - type: input
+    id: english
+    attributes:
+      label: "英語の原文 / English original"
+      description: "画面に出る英語をそのまま（--show-original で確認できます） / Exactly as shown (see --show-original)"
+    validations:
+      required: true
+  - type: input
+    id: current
+    attributes:
+      label: "今の訳 / Current translation"
+      description: "訳されていない場合は「なし」 / Write \"none\" if not translated"
+  - type: input
+    id: proposed
+    attributes:
+      label: "提案する訳 / Proposed translation"
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: "理由 / Reason"
+      description: "誤訳・分かりにくい・用語集と違う・訳されていない など / Mistranslation, unclear, differs from glossary, untranslated, ..."
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "スクリーンショット / Screenshot"
+      description: "画像を貼り付け（個人情報が写らないように） / Paste an image (no personal data visible)"
+  - type: input
+    id: cursor_version
+    attributes:
+      label: "Cursor の版 / Cursor version"
+      description: "Cursor > About Cursor（例: 3.27.22） / e.g. 3.27.22"
+    validations:
+      required: true
+  - type: input
+    id: tool_version
+    attributes:
+      label: "このツールの版 / Tool version"
+      description: "locales/<lang>.json の meta.packVersion（例: 0.3.3） / meta.packVersion, e.g. 0.3.3"

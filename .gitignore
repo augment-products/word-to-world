@@ -1,0 +1,20 @@
+# 作業ファイル（キャプチャ・作業リスト）: 画面から集めた文字を含むので公開しない
+work/
+*.capture.json
+dist/
+.DS_Store
+node_modules/
+__pycache__/
+# 配布キットの印（dist を作るときに入れる）
+.word-to-world-kit
+.cursor-i18n-kit
+
+# Cursor app bundle + raw string dumps (kept outside the repo, never committed)
+bundle-ref/
+
+# LAB_DIR の中身（~/Library/Application Support/word-to-world/）は git 作業ツリーの外に作られるが、
+# 誤って git 作業ツリーの中に作られた場合にコミットされないように記録する
+lab-profile/
+logs/
+state/
+Cursor-Lab.app/

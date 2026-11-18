@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8"><title>mock glass workbench</title><!-- fixture written by hand for tests; not Cursor code -->
+<style>.ui-field-group__entry-label{font-size:13px}.ui-section__title{font-size:15px}</style></head><body>
+<!-- Mimics Cursor 3.27.22 Agents-window (glass) settings DOM -->
+<nav id="app-sidebar">
+ <button data-sidebar-primary-action="" data-action-id="back" id="app-back"><span id="app-back-label">Back</span></button>
+ <button data-sidebar-primary-action="" data-action-id="new-agent" id="app-new">New Agent</button>
+ <div id="app-other-back">Back</div>
+</nav>
+<div data-component="agent-panel" aria-label="Chat">
+ <div id="outside-title">Projects</div>
+ <div data-component="glass-settings-panel" data-react-tab="general">
+  <nav data-component="glass-settings-sidebar">
+   <button id="sb-back">Back</button>
+   <input id="sb-search" placeholder="Search Settings" aria-label="Search Settings" value="">
+   <div id="sb-general" class="item">General</div>
+   <div id="sb-plan" class="item">Plan &amp; Usage</div>
+   <div id="sb-agents" class="item">Agents</div>
+  </nav>
+  <section data-component="glass-settings-tab">
+   <header><h1 id="tab-h1">General</h1><p id="tab-desc">Window Restoration</p></header>
+   <div class="ui-section__title" id="sec">Layout</div>
+   <div class="ui-field-group__entry" id="row1" data-search-aliases="restore windows">
+     <div class="ui-field-group__entry-label" id="lbl1">Window Restoration</div>
+     <div class="ui-field-group__entry-description" id="desc1">Controls which windows Cursor restores on startup</div>
+     <button id="btn-off" title="Off">Off</button>
+   </div>
+   <div class="ui-field-group__entry" id="row2">
+     <div class="ui-field-group__entry-label" id="lbl2">Conversation Density <span class="badge" id="badge">Beta</span></div>
+     <div class="ui-field-group__entry-description" id="desc2">General</div>
+   </div>
+   <div class="ui-field-group__entry" id="row3" data-search-aliases="">
+     <div class="ui-field-group__entry-label" id="lbl3"><span id="lbl3s">Reduce Motion</span></div>
+   </div>
+   <div id="tooltip-host" title="keep me">Hue</div>
+   <div class="ui-field-group__entry"><div class="ui-field-group__entry-label" id="cap-new">Brand New Setting</div>
+     <div class="ui-field-group__entry-description" id="cap-email">Signed in as user@example.com</div>
+     <div id="cap-path">/Users/someone/projects/secret</div>
+     <button id="cap-btn" aria-label="Frobnicate Widgets">x</button>
+     <div id="cap-hidden" style="display:none">Hidden Thing</div></div>
+  </section>
+ </div>
+</div>
+<script>
+// test helper: imitates settings search "jump to row" (finds a row label element by its ENGLISH text)
+window.findLabel = (txt) => { const sel='.cursor-settings-cell-label, .cursor-settings-section-header-title, .ui-field-group__entry-label, .ui-section__title, .mcp-server-item-main-content-name';
+  for (const e of document.querySelectorAll(sel)) if ((e.textContent||'').trim()===txt) return e.id || '(anon)'; return null; };
+</script></body></html>

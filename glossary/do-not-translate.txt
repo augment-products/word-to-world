@@ -1,0 +1,30 @@
+# 訳さない語（ブランド名・製品名・固有名詞・ファイル名・キー名）。1 行 1 語。
+# 英語キーにこの語が含まれる場合、訳にもそのまま残す（pack.js validate が警告で確認）。
+Cursor
+GitHub
+GitLab
+Slack
+OpenAI
+Anthropic
+Claude
+Azure
+AWS
+Bedrock
+Google
+Gemini
+Grok
+VS Code
+Graphite
+Origin
+macOS
+Linux
+MCP
+API
+URL
+SSH
+Git
+JSON
+mcp.json
+sandbox.json
+.cursorignore
+.gitignore

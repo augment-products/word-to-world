@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "locale-pack.schema.json",
+  "title": "Word to World for Cursor - language layer (schemaVersion 1)",
+  "description": "Keys are the exact English text shown on screen (trimmed). Values are display translations. The authoritative checker is `node tools/pack.js validate` (it also checks placeholders, duplicates and do-not-translate terms).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "meta"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "lang",
+        "name",
+        "nativeName",
+        "packVersion",
+        "cursorVersion",
+        "updated",
+        "scope"
+      ],
+      "properties": {
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Za-z]{2,4}|-[0-9]{3})?$",
+          "description": "vscode-loc id, lowercase (ja, zh-cn, pt-br). Must equal the file name (ja -> ja.json). English is the base and has no language layer."
+        },
+        "name": {
+          "type": "string",
+          "description": "Language name in English. The display name is Word to World for Cursor | <name> Language Layer."
+        },
+        "nativeName": {
+          "type": "string",
+          "description": "Language name in the language itself"
+        },
+        "packVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "cursorVersion": {
+          "type": "string",
+          "description": "Cursor version the language layer was most recently checked against"
+        },
+        "verifiedCursorVersions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Cursor versions this language layer has been checked against (e.g. 3.28.7, 3.30.14)"
+        },
+        "updated": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "scope": {
+          "enum": [
+            "settings",
+            "all"
+          ]
+        },
+        "maintainers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "glossary": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "exact": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "patterns": {
+      "type": "object",
+      "description": "Keys contain {0}, {1}...; the translation must contain the same placeholders.",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "scoped": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "selector",
+          "exact"
+        ],
+        "properties": {
+          "selector": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "exact": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "id": {
+            "type": "string",
+            "description": "unique group id, e.g. agents-sidebar-actions"
+          },
+          "area": {
+            "enum": [
+              "settings",
+              "agents",
+              "editor"
+            ],
+            "description": "settings = inside/near Cursor Settings; agents = Agents window chrome; editor = editor (IDE) window chrome. --scope settings keeps only 'settings'."
+          },
+          "deny": {
+            "type": "string",
+            "description": "CSS selector: never translate inside it (user data such as chat/project rows)"
+          },
+          "attrs": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "aria-label",
+                "placeholder",
+                "title"
+              ]
+            },
+            "description": "attributes translated in this group (default: none outside settings)"
+          },
+          "patterns": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "like top-level patterns ({0} placeholders), only inside this group"
+          },
+          "bypassDeny": {
+            "type": "boolean",
+            "description": "apply even inside the global deny list (only for narrow selectors such as a chat row's time stamp; never titles)"
+          },
+          "via": {
+            "enum": [
+              "css-placeholder"
+            ],
+            "description": "css-placeholder: keys are data-placeholder values of an empty editor paragraph; drawn by a CSS rule, the editor DOM is never changed"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

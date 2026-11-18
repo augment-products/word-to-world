@@ -1,0 +1,116 @@
+<!doctype html><html><head><meta charset="utf-8"><title>mock real-DOM chrome</title><!-- fixture written by hand for tests; not Cursor code -->
+<style>.ProseMirror p.is-editor-empty:first-child::before{content:attr(data-placeholder)}</style>
+</head><body>
+<!-- Structure follows DOM context paths recorded on a Mac; the text and ids below are made-up dummies -->
+<nav data-component="workspace-sidebar" id="glass-sidebar" aria-label="Sidebar">
+ <div class="ui-sidebar-top-bar"><div class="ui-sidebar-top-bar-icons">
+  <button class="ui-icon-button" id="i-hide" aria-label="Hide Sidebar"></button><button class="ui-icon-button" id="i-back" aria-label="Go Back"></button>
+ </div></div>
+ <div class="ui-scroll-area__content">
+  <div class="ui-sidebar-group" id="grp-projects">
+   <div class="ui-sidebar-group-label" data-sidebar-group-label=""><div class="ui-sidebar-group-label-main"><span class="ui-text"><span class="ui-sidebar-label-row-title ui-sidebar-group-label-title" id="h-projects">Projects</span></span></div></div>
+   <div><div><div data-component="projects-sidebar-empty-state" class="ui-button ui-sidebar-menu-button"><div role="button" class="ui-sidebar-menu-button-trigger" id="np-trigger" aria-label="New Project"><span>New Project</span></div></div></div></div>
+  </div>
+  <div class="ui-sidebar-group" id="grp-workspace">
+   <div class="ui-sidebar-group-label" data-sidebar-group-label=""><div class="ui-sidebar-group-label-main"><span class="ui-text"><span class="ui-sidebar-label-row-title ui-sidebar-group-label-title" id="h-userws">Projects</span></span>
+    <div role="presentation" class="ui-sidebar-group-label-actions"><button class="ui-icon-button" id="i-custom" aria-label="Customize Sidebar"></button></div></div></div>
+   <div class="ui-button ui-sidebar-menu-button" data-section-head=""><div role="button" class="ui-sidebar-menu-button-trigger"><div class="ui-sidebar-menu-button-content"><span class="ui-text"><span class="ui-sidebar-label-row-title" id="row-norepo">No Repo</span></span></div></div></div>
+   <div class="ui-button ui-sidebar-menu-button" data-section-head=""><div role="button" class="ui-sidebar-menu-button-trigger"><div class="ui-sidebar-menu-button-content"><span class="ui-text"><span class="ui-sidebar-label-row-title" id="row-repo">cursor-i18n</span></span></div></div></div>
+   <div data-sidebar-item-key="row:c1" data-sidebar-file-drop-agent-id="c1">
+    <div class="ui-button ui-sidebar-menu-button"><div class="ui-sidebar-menu-button-icon-wrapper"><span class="ui-sidebar-menu-button-status-icon"><span><span role="img" id="st-done" aria-label="Completed"></span></span></span></div>
+     <div role="button" class="ui-sidebar-menu-button-trigger"><div class="ui-sidebar-menu-button-content"><span class="ui-text"><span class="ui-1af040w" id="chat-title">3h</span></span></div></div>
+     <div class="ui-sidebar-menu-button-end"><span class="ui-sidebar-menu-button-end-rest" id="t-wrap"><span><span class="ui-text" id="t-3h">3h</span></span></span>
+      <div role="presentation" class="ui-sidebar-menu-button-actions"><span><button class="ui-icon-button" id="a-pin" aria-label="Pin"></button></span><span><button class="ui-icon-button" id="a-arch" aria-label="Archive"></button></span></div></div></div>
+   </div>
+   <div data-sidebar-item-key="row:c2" data-sidebar-file-drop-agent-id="c2">
+    <div class="ui-button ui-sidebar-menu-button"><div role="button" class="ui-sidebar-menu-button-trigger"><div class="ui-sidebar-menu-button-content"><span class="ui-text"><span id="chat-title2">Mac data greeting</span></span></div></div>
+     <div class="ui-sidebar-menu-button-end"><span class="ui-sidebar-menu-button-end-rest"><span><span class="ui-text" id="t-1mo">1mo</span></span></span></div></div>
+   </div>
+  </div>
+ </div>
+ <div class="ui-sidebar-footer"><div data-component="glass-sidebar-footer"><div class="ui-button ui-sidebar-menu-button"><div role="button" aria-label="USER NAME"><span id="user-name">USER NAME</span></div></div>
+  <button data-component="toggle-icon-button" class="ui-icon-button" id="i-settings" aria-label="Settings"></button></div></div>
+</nav>
+<div data-component="switcher"><hr data-component="resize-handle" id="resize" aria-label="Resize sidebar"></div>
+<div data-component="agent-panel" role="main" aria-label="Chat">
+ <div data-component="content-pane-top-bar"><div data-component="top-bar-control-cluster">
+  <button data-component="open-editor-window-cta" aria-label="IDE"><span>IDE</span></button><button class="ui-icon-button" id="chat-actions" aria-label="Chat actions"></button></div></div>
+ <div class="pickers">
+  <span><button role="combobox" class="ui-select-trigger" id="pk-project" aria-label="No Repo, select project"><span class="ui-select-label"><span id="pk-project-label">No Repo</span></span></button></span>
+  <span><button role="combobox" class="ui-select-trigger" id="pk-branch" aria-label="Branch main, open branch menu"><span class="ui-select-label"><span id="pk-branch-label">main</span></span></button></span>
+  <span><button class="ui-select-trigger" id="pk-env" aria-label="Cloud, select environment"><span class="ui-select-label"><span><span id="pk-env-label">Cloud</span></span></span></button></span>
+  <span><button class="ui-select-trigger" id="pk-env2" aria-label="my-mac, select environment"><span class="ui-select-label"><span id="pk-env2-label">my-mac</span></span></button></span>
+ </div>
+ <div class="agent-prompt-input-root"><div class="ui-prompt-input"><div class="ui-prompt-input__container">
+  <div data-component="prompt-input-editor" class="ui-prompt-input-editor"><div class="ui-prompt-input-editor__content">
+   <div role="textbox" class="tiptap ProseMirror" contenteditable="true" aria-label="Prompt" id="editor"><p class="is-empty is-editor-empty" data-placeholder="Plan, Build, / for skills, @ for context" id="editor-p"><br class="ProseMirror-trailingBreak"></p></div>
+  </div></div>
+  <div data-component="prompt-input-editor" class="ui-prompt-input-editor"><div class="ui-prompt-input-editor__content">
+   <div role="textbox" class="tiptap ProseMirror" contenteditable="true" aria-label="Prompt" id="editor2"><p data-placeholder="Send follow-up" id="editor2-p">Plan New Idea</p></div>
+  </div></div>
+  <div data-component="prompt-input-toolbar"><div data-component="prompt-input-toolbar-left"><button class="ui-icon-button" id="tb-add" aria-label="Add agents, context, tools"></button></div>
+   <div data-component="prompt-input-toolbar-right"><button class="ui-button" id="tb-model"><span class="vscode-model-picker__trigger-text"><div class="ui-markdown"><p id="model">Auto</p></div></span></button>
+    <button class="ui-icon-button" id="tb-voice" aria-label="Start voice input"></button><button data-component="realtime-voice-start" class="ui-button" id="tb-vchat" aria-label="Start voice chat"></button></div></div>
+ </div></div></div>
+ <div><div><button class="ui-pill" id="pill"><span class="ui-pill__label" id="pill-label">Plan New Idea</span><span class="ui-pill__hint" id="pill-hint">⇧Tab</span></button></div></div>
+ <div data-component="glass-empty-state-onboarding-footer"><div data-component="claude-code-import-cta"><div><button data-component="pressable"><span><span id="cc1">Import your Claude Code conversations</span><span id="cc2">Sync your chats and continue them in Cursor</span></span></button></div>
+  <div><button class="ui-icon-button" id="cc-dismiss" aria-label="Dismiss"></button></div></div></div>
+</div>
+<!-- editor (IDE) window parts -->
+<div class="part titlebar" id="workbench.parts.titlebar"><div class="titlebar-left"><div class="window-title" id="win-title">my-project — Cursor</div>
+ <ul role="toolbar" class="actions-container"><li class="action-item"><a role="button" class="action-label codicon" id="tt-toggle" aria-label="Toggle Primary Side Bar (⌘B)"></a></li>
+ <li class="action-item"><a role="button" class="action-label codicon" id="tt-settings" aria-label="Open Cursor Settings"></a></li></ul></div></div>
+<div class="tabs-container" role="tablist">
+ <div role="tab" class="tab"><div class="monaco-icon-label codicon-settings-editor-label-icon" id="tab-settings" aria-label="Cursor Settings"><div class="monaco-icon-label-container"><span class="monaco-icon-name-container"><a class="label-name"><span class="monaco-highlighted-label" id="tab-settings-label">Cursor Settings</span></a></span></div></div></div>
+ <div role="tab" class="tab"><div class="monaco-icon-label file-icon" id="tab-file" aria-label="Cursor Settings"><a class="label-name"><span id="tab-file-label">Cursor Settings</span></a></div></div>
+ <div class="monaco-action-bar"><ul><li><div><a role="button" class="open-agents-window-button" id="aw-btn"><span class="open-agents-window-label" id="aw-label">Agents Window</span></a></div></li></ul></div>
+</div>
+<footer role="status" id="workbench.parts.statusbar" class="part statusbar"><div class="right-items items-container">
+ <div id="Anthropic.claude-code" class="statusbar-item right" aria-label="✻ Claude Code, Open Claude Code"><a role="button" class="statusbar-item-label" id="sb-claude">✻ Claude Code</a></div>
+ <div id="aiCodeTracking.stats.recentCommit" class="statusbar-item right" aria-label="No commit has been scored yet"><a role="button" class="statusbar-item-label" id="sb-commit">No commit scored</a></div>
+ <div id="aiCodeTracking.stats.tab" class="statusbar-item right" aria-label="Tab AI Stats: 3 accepted out of 7 suggested, 42 percent acceptance rate"><a role="button" class="statusbar-item-label" id="sb-tab">Tab Stats: 3/7 (42%)</a></div>
+ <div id="Cursor Tab" class="statusbar-item right" aria-label="Cursor Tab"><a role="button" class="statusbar-item-label" id="sb-ct">Cursor Tab</a></div>
+</div></footer>
+<!-- editor window: agent pane on the right (0.3.5; shape from the throwaway-profile tour on Linux 3.27.22) -->
+<div class="part auxiliarybar" id="workbench.parts.auxiliarybar">
+ <div class="composite title auxiliary-bar-title--agent-mode"><div class="title-label"><h2 id="ap-h2">New Agent</h2></div><span class="auxiliary-bar-chat-title" id="ap-title">New Agent</span></div>
+ <div class="composite title auxiliary-bar-title--agent-mode"><span class="auxiliary-bar-chat-title" id="ap-title2">Fix login bug</span></div>
+ <div class="aislash-editor-grid"><div class="aislash-editor-input" contenteditable="true" id="ap-input"><p>Log in</p></div><div class="aislash-editor-placeholder" id="ap-ph" style="pointer-events:none">Plan, Build, / for skills, @ for context</div></div>
+ <div class="ai-input-full-input-box-bottom-container"><div><span class="truncate" id="ap-model">Auto</span></div><div><span class="truncate" id="ap-login">Log in</span></div></div>
+ <div class="upgrade-pro-button" id="up-btn" aria-label="Upgrade"><span class="upgrade-pro-button-text" id="up-text">Upgrade</span></div>
+</div>
+<!-- 0.3.5: Customize page tab + Browse Marketplace button, model picker (options rendered as markdown) -->
+<div class="tabs-container" role="tablist"><div role="tab" class="tab" aria-label="Customize"><div class="monaco-icon-label codicon-customize-editor-label-icon" id="tab-cust" aria-label="Customize"><a class="label-name"><span id="tab-cust-label">Customize</span></a></div></div></div>
+<div class="ui-customize-view"><button id="browse-btn" aria-label="Browse Marketplace">Browse<span id="browse-mk"> Marketplace</span></button><button id="cust-browse2">Browse</button></div>
+<div class="cursor-settings-pane-content"><button id="mp-trigger"><span class="vscode-model-picker__trigger-text"><div class="ui-markdown markdown-root"><p id="mp-trigger-p">Default</p></div></span></button></div>
+<div class="ui-menu ui-model-picker__menu"><div class="ui-model-picker__item-content-name"><div class="ui-markdown markdown-root"><p id="mp-default">Default</p></div></div>
+ <div class="ui-model-picker__item-content-name"><div class="ui-markdown markdown-root"><p id="mp-inherit">Inherit from parent</p></div></div>
+ <div class="ui-model-picker__item-content-name"><div class="ui-markdown markdown-root"><p id="mp-model">gpt-5</p></div></div></div>
+<div class="markdown-root" id="chat-md"><p id="chat-md-p">Default</p></div>
+<div id="menu-host" class="shadow-root-host"></div>
+<script>
+// editor "..." menu: VS Code renders it inside an open shadow root
+window.openMenu = () => { const old = document.getElementById('menu-host'); const host = document.createElement('div'); host.id = 'menu-host'; host.className = 'shadow-root-host';
+  const sr = host.attachShadow({ mode: 'open' });   // like VS Code: shadow host created, filled, then inserted into the context view
+  sr.innerHTML = '<div class="monaco-menu"><ul class="actions-container"><li class="action-item"><a class="action-menu-item"><span class="action-label" id="m-claude">Claude Code: Open</span></a></li>' +
+    '<li class="action-item"><a class="action-menu-item"><span class="action-label" id="m-browser">Open Browser</span></a></li>' +
+    '<li class="action-item"><a class="action-menu-item"><span class="action-label" id="m-icons">Configure Icon Visibility</span></a></li></ul></div>';
+  old.replaceWith(host); };
+window.addMenuItem = () => { const ul = document.getElementById('menu-host').shadowRoot.querySelector('ul'); const li = document.createElement('li'); li.innerHTML = '<span class="action-label" id="m-late">Open Browser</span>'; ul.appendChild(li); };
+window.menuText = () => { const sr = document.getElementById('menu-host').shadowRoot; if (!sr) return null; const g = id => sr.getElementById(id).textContent; return [g('m-claude'), g('m-browser'), g('m-icons')].concat(sr.getElementById('m-late') ? [g('m-late')] : []).join('|'); };
+</script>
+<!-- 0.3.7 (Cursor 3.28.7): VS Code Settings editor (Cursor's own descriptions only), Settings tab title, project picker -->
+<div class="tabs-container"><div class="tab"><div class="monaco-icon-label codicon-settings-editor-label-icon"><span id="vsc-tab" class="label-name">VS Code Settings</span></div></div>
+  <div class="tab"><div class="monaco-icon-label"><span id="file-tab" class="label-name">VS Code Settings</span></div></div></div>
+<div class="settings-editor"><div class="setting-item-contents">
+  <div class="setting-item-title"><span id="vsc-title">Cursor › Composer: Code Block Word Wrap</span></div>
+  <div class="setting-item-description"><div class="setting-item-markdown"><p id="vsc-desc1">Wrap long lines in Agent chat code blocks.</p></div></div>
+  <div class="setting-item-description"><div class="setting-item-markdown"><p id="vsc-desc2">Status chimes</p></div></div>
+  <div class="setting-item-description"><div class="setting-item-markdown"><p id="vsc-desc3">Allow setting breakpoints in any file.</p></div></div>
+  <div class="setting-item-value"><select id="vsc-enum"><option id="vsc-opt">Compact</option></select><input id="vsc-input" value="Show rotating tips on the empty screen."></div>
+</div></div>
+<div data-component="search-menu-popup" id="picker"><input id="picker-search" placeholder="Search repos, cloud environments..." value="">
+  <div id="picker-recents">Recents</div><div id="picker-repo">sui-archive</div><div id="picker-mac">This Mac</div><div id="picker-remote">Remote</div>
+  <div id="picker-existing">Use Existing...</div></div>
+<div id="outside-recents">Recents</div>
+</body></html>

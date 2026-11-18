@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta charset="utf-8"><title>mock agents window chrome</title><!-- fixture written by hand for tests; not Cursor code -->
+</head><body>
+<!-- Mimics the Agents window sidebar, the sidebar filter menu, the composer and the editor-window welcome screen (structure only) -->
+<nav data-component="workspace-sidebar" id="sidebar">
+ <button data-sidebar-primary-action="" data-action-id="new-agent" id="a-newchat"><span>New Chat</span></button>
+ <button data-sidebar-primary-action="" data-action-id="automations" id="a-auto"><span>Automations</span></button>
+ <button data-sidebar-primary-action="" data-action-id="marketplace" id="a-cust" title="Customize"><span>Customize</span></button>
+ <div data-sidebar-group-label="" data-trailing-band="collection" id="h-projects"><div role="button">Projects</div></div>
+ <div data-sidebar-menu-button="" id="r-newproject"><span>New Project</span></div>
+ <div data-sidebar-item-key="row:p1" data-sidebar-file-drop-agent-id="p1" data-sidebar-selectable-agent-id="p1" id="r-project-default"><span>New Project</span></div>
+ <div data-sidebar-group-label="" data-trailing-band="collection" id="h-repos"><div role="button">Repositories</div></div>
+ <div data-sidebar-group-label="" id="g-norepo"><div role="button">No Repo</div></div>
+ <div data-sidebar-group-label="" id="g-userrepo"><div role="button">Projects</div></div>
+ <div data-sidebar-menu-button="" data-section-head="" id="s-userfolder"><div data-sidebar-row-trigger="" role="button">New Project</div></div>
+ <div data-sidebar-item-key="row:c1" data-sidebar-file-drop-agent-id="c1" data-sidebar-selectable-agent-id="c1" id="r-chat1" title="New Chat"><span>New Chat</span></div>
+ <div data-sidebar-item-key="row:c2" data-sidebar-file-drop-agent-id="c2" id="r-chat2"><span>Automations</span></div>
+ <div data-sidebar-item-key="row:c3" data-sidebar-file-drop-agent-id="c3" id="r-chat3"><span>Cursor greeting</span></div>
+ <div data-sidebar-item-key="row:c4" data-sidebar-file-drop-parent-agent-id="c3" id="r-sub"><span>Status</span></div>
+ <button aria-label="Customize Sidebar" id="filter-trigger">≡</button>
+</nav>
+<div data-component="menu-popup" role="menu" aria-label="Sidebar filters" id="menu-main">
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-grouping"><span>Grouping</span><span id="m-grouping-val">Repository</span></div>
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-ordering">Ordering</div>
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-show">Show</div>
+ <div data-component="menu-section-title" id="m-filters">Filters</div>
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-status">Status</div>
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-pr">PR</div>
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-env">Environment</div>
+ <div data-component="menu-submenu-trigger" role="menuitem" id="m-source">Source</div>
+ <div role="menuitemcheckbox" id="m-archived">Archived</div>
+ <div role="menuitem" id="m-markall">Mark All as Read</div>
+</div>
+<div data-component="menu-popup" data-submenu="" aria-label="Grouping" id="menu-sub">
+ <div role="menuitemradio" id="m-r-repo">Repository</div><div role="menuitemradio" id="m-r-env">Environment</div>
+</div>
+<div data-component="menu-popup" aria-label="Environment" id="menu-env">
+ <div role="menuitemcheckbox" id="m-e-cloud">Cloud</div><div role="menuitemcheckbox" id="m-e-host">my-mac.local</div>
+</div>
+<div data-component="menu-popup" aria-label="Model" id="menu-model">
+ <div data-component="menu-search-row"><input id="m-model-search" placeholder="Search models" value="Status"></div>
+ <div role="menuitemradio" id="m-model-auto">Auto</div><div role="menuitemradio" id="m-model-x">claude-4.5-sonnet</div>
+ <div role="menuitemradio" id="m-branch">main</div>
+</div>
+<div data-component="agent-panel" id="panel">
+ <div class="tab" id="tab-title">Cursor greeting</div>
+ <div data-component="project-title" id="proj-title">New Project</div>
+ <div class="composer-messages-container"><div data-message-role="user" id="msg-user">New Chat</div>
+   <div data-message-role="assistant" id="msg-ai">Grouping Status Show <button id="msg-btn">Create Repo</button></div></div>
+ <button id="chip-create">Create Repo</button>
+ <div class="ProseMirror" contenteditable="true" id="composer"><p data-placeholder="Send follow-up" id="composer-p"></p></div>
+ <textarea id="composer-ta" placeholder="Send follow-up">Mark All as Read</textarea>
+ <div id="env-label">Cloud</div>
+ <div id="plain-show">Show</div>
+</div>
+<div id="welcome">
+ <div class="empty-screen-button" id="w-open"><div>Open project</div></div>
+ <div class="empty-screen-button" id="w-clone"><div>Clone repo</div></div>
+ <div class="empty-screen-button" id="w-ssh"><div>Connect via SSH</div></div>
+ <div id="w-recent-box"><div><div><span id="w-recent">Recent projects</span></div></div>
+  <div><div class="empty-screen-recent-item" id="w-item1"><div>Recent projects</div><div><span>~</span></div></div>
+       <div class="empty-screen-recent-item" id="w-item2"><div>Clone repo</div></div></div></div>
+</div>
+</body></html>

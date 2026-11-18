@@ -1,0 +1,56 @@
+name: "不具合の報告 / Bug report"
+description: "起動・停止・アンインストール・表示の不具合 / Problems starting, stopping, uninstalling or displaying"
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ログやスクリーンショットに個人情報（チャット・メールアドレス・パス中のユーザー名など）が無いか確認してください。
+        Please remove personal data (chats, e-mail addresses, user names in paths) from logs and screenshots.
+        セキュリティ上の問題（デバッグポートなど）は公開の Issue に書かず、リポジトリの管理者へ直接連絡してください。
+        Do not report security problems (e.g. the debug port) in a public issue; contact the maintainers privately.
+  - type: textarea
+    id: what
+    attributes:
+      label: "何が起きたか / What happened"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "手順 / Steps to reproduce"
+      placeholder: "1. lab/start.sh --lang ja\n2. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "期待した結果 / Expected result"
+  - type: input
+    id: command
+    attributes:
+      label: "実行したコマンドと終了コード / Command and exit code"
+      description: "例: lab/start.sh --lang ja → 7"
+  - type: textarea
+    id: log
+    attributes:
+      label: "ログ / Log"
+      description: "~/Library/Application Support/word-to-world/logs/ から関係する部分だけ / Only the relevant part"
+      render: text
+  - type: input
+    id: cursor_version
+    attributes:
+      label: "Cursor の版 / Cursor version"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: "macOS の版 / macOS version"
+    validations:
+      required: true
+  - type: input
+    id: tool_version
+    attributes:
+      label: "このツールの版 / Tool version"

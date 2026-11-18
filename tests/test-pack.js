@@ -1,0 +1,43 @@
+'use strict';
+// Language-pack validator unit tests (no browser).
+const { validatePack, duplicateKeys, listPacks } = require('../tools/pack.js');
+const fs = require('fs');
+const { makeChecker } = require('./lib');
+const T = makeChecker(), check = T.check;
+const base = () => ({ schemaVersion: 1, meta: { lang: 'ja', name: 'Japanese', nativeName: '日本語', packVersion: '0.1.0', cursorVersion: '3.27.22', updated: '2026-11-02', scope: 'settings' }, exact: { General: '一般' }, patterns: { 'Open {0}': '{0} を開く' } });
+const v = (p, f = 'ja.json') => validatePack(typeof p === 'string' ? p : JSON.stringify(p), f);
+const has = (r, re) => r.errors.some(e => re.test(e));
+
+for (const f of listPacks()) { const r = validatePack(fs.readFileSync(f, 'utf8'), f); check(`shipped pack ${f.split('/').pop()} is valid`, r.errors.length === 0, r.errors.slice(0, 3).join(' / ')); }
+check('minimal valid pack', v(base()).errors.length === 0);
+check('broken JSON', has(v('{"a":'), /JSON/));
+check('wrong schemaVersion', has(v({ ...base(), schemaVersion: 2 }), /schemaVersion/));
+let p = base(); delete p.meta.nativeName; check('missing meta field', has(v(p), /meta\.nativeName/));
+check('file name must match meta.lang', has(v(base(), 'zh-CN.json'), /ファイル名/));
+p = base(); p.meta.lang = 'en'; check('English pack refused (base language)', has(v(p, 'en.json'), /基準言語/));
+p = base(); p.meta.lang = 'JA'; check('bad language code', has(v(p, 'JA.json'), /meta\.lang/));
+p = base(); p.exact[' General'] = '一般'; check('key with surrounding spaces', has(v(p), /前後に空白/));
+p = base(); p.exact.Rules = ''; check('empty translation', has(v(p), /訳が空/));
+p = base(); p.exact.Rules = 3; check('non-string translation', has(v(p), /文字列/));
+p = base(); p.patterns['Open {0}'] = '開く'; check('pattern placeholder mismatch', has(v(p), /プレースホルダー/));
+p = base(); p.patterns['Open'] = '開く'; check('pattern without placeholder', has(v(p), /プレースホルダーが必要/));
+p = base(); p.exact.Rules = '<b>ルール</b>'; check('HTML in translation', has(v(p), /HTML/));
+p = base(); p.scoped = [{ selector: 'a{}', exact: { A: 'B' } }]; check('bad scoped selector', has(v(p), /selector/));
+p = base(); p.scoped = [{ id: 'g', area: 'agents', selector: '[data-x] button', deny: '[data-row]', attrs: ['placeholder'], note: 'n', exact: { A: 'B' } }]; check('valid scoped group with area/deny/attrs accepted', v(p).errors.length === 0, v(p).errors.join('; '));
+p = base(); p.scoped = [{ area: 'everywhere', selector: 'a', exact: { A: 'B' } }]; check('unknown scoped area refused', has(v(p), /area/));
+p = base(); p.scoped = [{ selector: 'a', attrs: ['value'], exact: { A: 'B' } }]; check('scoped attrs other than aria-label/placeholder/title refused', has(v(p), /attrs/));
+p = base(); p.scoped = [{ selector: 'a', deny: 'b{}', exact: { A: 'B' } }, { id: 'x', selector: 'a', exact: { A: 'B' }, foo: 1 }]; check('bad deny selector + unknown group key refused', has(v(p), /deny/) && has(v(p), /不明な項目/));
+p = base(); p.scoped = [{ id: 'x', selector: 'a', exact: { A: 'B' } }, { id: 'x', selector: 'b', exact: { A: 'B' } }]; check('duplicate group id refused', has(v(p), /重複/));
+p = base(); p.scoped = [{ id: 'g', area: 'agents', selector: 'a', bypassDeny: true, attrs: ['aria-label'], exact: { A: 'B' }, patterns: { 'Go {0}': '{0} へ' } }, { id: 'h', area: 'agents', selector: 'div', via: 'css-placeholder', exact: { 'Ask': '質問' } }];
+check('0.3.3 group fields accepted: patterns, bypassDeny, via css-placeholder', v(p).errors.length === 0, v(p).errors.join('; '));
+p = base(); p.scoped = [{ id: 'g', area: 'agents', selector: 'a', exact: {}, patterns: { 'Go {0}': 'へ' } }]; check('group pattern with mismatching placeholders refused', has(v(p), /プレースホルダー/));
+p = base(); p.scoped = [{ id: 'g', area: 'agents', selector: 'a', exact: {}, patterns: { 'Go': 'へ' } }]; check('group pattern without {0} refused', has(v(p), /プレースホルダー/));
+p = base(); p.scoped = [{ id: 'g', area: 'settings', selector: 'a', bypassDeny: true, exact: { A: 'B' } }, { id: 'h', area: 'agents', selector: 'a', bypassDeny: 'yes', exact: { A: 'B' } }]; check('bypassDeny refused for the settings area and for non-boolean values', v(p).errors.filter(e => /bypassDeny/.test(e)).length === 2, v(p).errors.join('; '));
+p = base(); p.scoped = [{ id: 'g', area: 'agents', selector: 'a', via: 'js', exact: { A: 'B' } }, { id: 'h', area: 'agents', selector: 'a', via: 'css-placeholder', attrs: ['title'], exact: { A: 'B' } }]; check('unknown via refused; css-placeholder group with attrs refused', v(p).errors.filter(e => /via/.test(e)).length === 2, v(p).errors.join('; '));
+p = base(); p.extra = 1; check('unknown top-level key', has(v(p), /未知/));
+const dupText = '{"schemaVersion":1,"meta":' + JSON.stringify(base().meta) + ',"exact":{"General":"一般","General":"全般"}}';
+check('duplicate keys detected', has(v(dupText), /2 回以上/) && duplicateKeys(dupText).includes('General'));
+p = base(); p.exact['Open GitHub'] = 'ギットハブを開く'; check('do-not-translate term warning', v(p).warnings.some(w => /GitHub/.test(w)));
+p = base(); p.exact.Same = 'Same'; check('translation equal to English is a warning, not an error', v(p).errors.length === 0 && v(p).warnings.some(w => /同じ/.test(w)));
+console.log(`RESULT pack: ${T.pass} passed, ${T.fail} failed`);
+process.exit(T.fail ? 1 : 0);

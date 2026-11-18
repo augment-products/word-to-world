@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      # One Node version failing must not cancel the others, so a flake or a
+      # version-specific failure still leaves the rest of the matrix visible.
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    
+    - name: Install Chromium (for headless tests)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser
+    
+    - name: Run all tests
+      run: |
+        cd tests
+        bash run-all.sh
+      env:
+        CI: true
+    
+    - name: Validate locale schema
+      run: |
+        node tools/pack.js validate locales/ja.json
+    
+    - name: Check repository hygiene
+      run: |
+        bash tests/test-hygiene.sh
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Lint shell scripts
+      run: |
+        bash tests/test-shell-lint.sh

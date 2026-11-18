@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Cursor 本体の不具合・要望 / Problems with Cursor itself"
+    url: https://forum.cursor.com/
+    about: "このツールは非公式です。Cursor 本体のことは Cursor へ。 / This tool is unofficial; for Cursor itself, ask Cursor."
